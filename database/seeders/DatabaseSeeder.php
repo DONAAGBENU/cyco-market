@@ -11,15 +11,17 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        // Création de l'administrateur
-        User::create([
-            'name' => 'Admin CYCO',
-            'email' => 'guedeyiborcyrille3@gmail.com',
-            'password' => Hash::make('cyrill12345'),
-            'role' => 'admin',
-            'phone' => '+228 70197698',
-            'address' => 'Lome, Togo'
-        ]);
+        // Création de l'administrateur (update si déjà existant)
+        User::updateOrCreate(
+            ['email' => 'guedeyiborcyrille3@gmail.com'],
+            [
+                'name' => 'Admin CYCO',
+                'password' => Hash::make('cyrill12345'),
+                'role' => 'admin',
+                'phone' => '+228 70197698',
+                'address' => 'Lome, Togo'
+            ]
+        );
 
         // Création de catégories par défaut
         $categories = [

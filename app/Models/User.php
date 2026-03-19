@@ -30,7 +30,8 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->role === 'admin';
+        // Comparaison insensible à la casse et aux espaces accidentels
+        return is_string($this->role) && trim(strtolower($this->role)) === 'admin';
     }
 
     public function orders()
