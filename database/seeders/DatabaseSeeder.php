@@ -3,25 +3,14 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
 use App\Models\Category;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        // Création de l'administrateur (update si déjà existant)
-        User::updateOrCreate(
-            ['email' => 'guedeyiborcyrille3@gmail.com'],
-            [
-                'name' => 'Admin CYCO',
-                'password' => Hash::make('cyrill12345'),
-                'role' => 'admin',
-                'phone' => '+228 70197698',
-                'address' => 'Lome, Togo'
-            ]
-        );
+        // Création de l'administrateur via le seeder dédié
+        $this->call(AdminUserSeeder::class);
 
         // Création de catégories par défaut
         $categories = [
