@@ -16,4 +16,4 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 EXPOSE 3306
 
-CMD php artisan serve --host=0.0.0.0 --port=3306
+CMD php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=3306
