@@ -18,20 +18,27 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'is_banned' => 'boolean',
+        'last_login' => 'datetime',
+    ];
+
+    /**
+     * Vérifie si l'utilisateur est admin
+     */
+    public function isAdmin(): bool
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'is_banned' => 'boolean',
-            'last_login' => 'datetime',
-        ];
+        return $this->role === 'admin';
     }
 
-    public function isAdmin()
+    /**
+     * Vérifie si l'utilisateur est banni
+     */
+    public function isBanned(): bool
     {
-        // Comparaison insensible à la casse et aux espaces accidentels
-        return is_string($this->role) && trim(strtolower($this->role)) === 'admin';
+        return (bool) $this->is_banned;
     }
 
     public function orders()

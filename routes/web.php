@@ -41,8 +41,9 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::post('/clear', [CartController::class, 'clear'])->name('clear');
 });
 
-// Commandes (authentification requise)
-Route::middleware('auth')->prefix('orders')->name('orders.')->group(function () {
+// Commandes (authentification requise + vérification banni)
+Route::middleware(['auth', 'check.banned'])->prefix('orders')->name('orders.')->group(function () {
+    // Toutes les routes qui nécessitent d'être connecté et non banni
     Route::get('/', [OrderController::class, 'index'])->name('index');
     Route::get('/checkout', [OrderController::class, 'create'])->name('checkout');
     Route::post('/', [OrderController::class, 'store'])->name('store');
